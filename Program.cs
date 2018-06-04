@@ -16,7 +16,7 @@ namespace graphdbtest
 
         private static IServiceProvider SetupDi() {
             var services = new ServiceCollection();
-            services.AddScoped<IMessenger, Messenger>();
+            services.Scan(s => s.FromAssemblyOf<IMessenger>().AddClasses(c => c.AssignableTo<IMessenger>()).AsImplementedInterfaces().WithTransientLifetime());
             return services.BuildServiceProvider();
         }
     }
